@@ -1,14 +1,11 @@
 #grid{
-    position: fixed;
+    background-color: black;
     display: grid;
-    width: 80vw;
-    height: 80vh;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 20vh);
+    grid-template-rows: repeat(4, 20vh);
 }
 
 #image{
-    width: 10vw;
-    height: 15vw;
-    padding-top: 1vw;
+    height: 90%;
+    width: 90%;
 }
