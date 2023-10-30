@@ -14,6 +14,7 @@ const img13= document.getElementById("image13");
 const img14= document.getElementById("image14");
 const img15= document.getElementById("image15");
 const img16= document.getElementById("image16");
+// true means the card is not flipped (back side). False means its flipped
 var1=true;
 var2=true;
 var3=true;
@@ -30,7 +31,6 @@ var13=true;
 var14=true;
 var15=true;
 var16=true;
-
 img1.addEventListener("click", makeListner(img1, 1, var1));
 img2.addEventListener("click", makeListner(img2, 2, var2));
 img3.addEventListener("click", makeListner(img3, 3, var3));
@@ -50,35 +50,69 @@ img16.addEventListener("click", makeListner(img16, 16, var16));
 var numCardClick=0;
 var FirstCard="";
 var SecondCard= ""; 
+var number;
 
 
-
-const cardGame = [[img1, img2, img3, img4],
-                  [img5, img6, img7, img8],
-                  [img9, img10, img11, img12],
-                  [img13, img14, img15, img16]];
+const cardGame = [[1, 2, 3, 4],
+                  [5, 6, 7, 8],
+                  [9, 10, 11, 12],
+                  [13, 14, 15, 16]];
  
-function makeListner(element, number, bool){
+function makeListner(element, num, bool){
     return () => {
-        if (bool=true){
-            element.src= "images/img"+number;
+        if (num>8){
+            number= (num-8);
+        }else{
+            number=num; 
+        }
+        console.log("clicked");
+        if (bool==true){
+            element.src= "cards/img"+number+".svg";
             numCardClick++;
             if (numCardClick==1){
+                console.log("1) "+number);
                 FirstCard=element;
             }else if(numCardClick==2){
-                SecondCard==element;
+                console.log("2) "+number)
+                SecondCard=element;
+                if(compare()){
+                    bool=true;
+                    
+                }
             }
             bool=false;
         }else{
-            element.src= "images/face";
+            element.src= "cards/img17.svg";
             numCardClick--;
             bool=true; 
         }
-        if (numCardClick==2){
-            
+    }
+}
+
+function compare(){
+    if (numCardClick==2){
+        sleep(2000); 
+        console.log("stuff happened");
+        if (FirstCard.src == SecondCard.src){
+            console.log("it matches");
+            numCardClick=0; 
+        }else{
+            FirstCard.src="cards/img17.svg";
+            SecondCard.src="cards/img17.svg";
+            numCardClick=0; 
+            return true;
         }
     }
 }
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
 
 
 
