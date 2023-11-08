@@ -14,7 +14,8 @@ const img13= document.getElementById("image13");
 const img14= document.getElementById("image14");
 const img15= document.getElementById("image15");
 const img16= document.getElementById("image16");
-
+const resetButton= document.getElementById("reset");
+const scoreUpdate= document.getElementById("score");
 ran=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 var randomNumber=0
 for (let i = ran.length - 1; i > 0; i--) {
@@ -60,8 +61,6 @@ for (let i =0; i<ran.length; i++){
 
 cards2= [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15, img16]
 
-
-
 img1.addEventListener("click", makeListner(ran[0]));
 img2.addEventListener("click", makeListner(ran[1]));
 img3.addEventListener("click", makeListner(ran[2]));
@@ -79,24 +78,34 @@ img14.addEventListener("click", makeListner(ran[13]));
 img15.addEventListener("click", makeListner(ran[14]));
 img16.addEventListener("click", makeListner(ran[15]));
 var numCardClick=0;
-let twoCards=[img1,img2];
+let twoCards=[-1,-1];
 var number=0;
 var score=0;
 var comparing= false;
 flippedCards= []
 
 
+resetButton.addEventListener("click", ()=>{
+    location.reload();
+})
+
+
+
 
 function makeListner(num){
     return () => {
-        if(flippedCards.indexOf(cards2[ran.indexOf(num)])==-1 && !comparing){
+        console.log(ran)
+        console.log(cards)
+        if(flippedCards.indexOf(cards2[ran.indexOf(num)])==-1 && !comparing && ran[ran.indexOf(num)] != ran[twoCards[0]]){
             score++;
+            scoreUpdate.innerHTML= "Score: "+ score;
             if (num>8){
                 number=num-8;
             }else{
                 number=num
             }
-            if (cards[num-1].src== "http://127.0.0.1:5500/cards/img17.jpg"){
+            console.log(cards[num-1].src)
+            console.log(cards[num-1].src== "http://127.0.0.1:5500/cards/img17.jpg")
                 cards2[ran.indexOf(num)].src= "cards/img"+number+".jpg";
                 numCardClick++;
                 if (numCardClick==1){
@@ -107,10 +116,7 @@ function makeListner(num){
                     setTimeout(compare, 378)
                 }
                 bool=false;
-            }else{
-                cards2[ran.indexOf(num)].src= "cards/img17.jpg";
-                numCardClick--;
-            }
+        
         }
     }
 }
@@ -121,22 +127,16 @@ function compare(){
             numCardClick=0; 
             flippedCards.push(cards2[twoCards[0]])
             flippedCards.push(cards2[twoCards[1]])
-            console.log("it matched")
             if (flippedCards.length==16){
                 alert("You have won the game. Your score is "+ score);
             }
+            twoCards=[-1,-1];
         }else{
             cards2[twoCards[0]].src="cards/img17.jpg";
             cards2[twoCards[1]].src="cards/img17.jpg";
+            twoCards=[-1,-1];
             numCardClick=0; 
         }
     }
     comparing=false;
 }
-
-
-
-
-
-
-
