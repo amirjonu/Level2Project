@@ -94,8 +94,6 @@ resetButton.addEventListener("click", ()=>{
 
 function makeListner(num){
     return () => {
-        console.log(ran)
-        console.log(cards)
         if(flippedCards.indexOf(cards2[ran.indexOf(num)])==-1 && !comparing && ran[ran.indexOf(num)] != ran[twoCards[0]]){
             score++;
             scoreUpdate.innerHTML= "Score: "+ score;
@@ -104,8 +102,6 @@ function makeListner(num){
             }else{
                 number=num
             }
-            console.log(cards[num-1].src)
-            console.log(cards[num-1].src== "http://127.0.0.1:5500/cards/img17.jpg")
                 cards2[ran.indexOf(num)].src= "cards/img"+number+".jpg";
                 numCardClick++;
                 if (numCardClick==1){
